@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>VerhaltenRauchAnalogieDemo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<link type="text/css" rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/three@0.133.0/build/three.js" crossorigin="anonymous"></script>
+   <script src="https://unpkg.com/three@0.133.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+</head>
+
+<body>
+	<script type="module">
+    //  https://github.com/tweenjs/tween.js/
+    // Tween JS ist eine Bibliothek die Animationen bereitstellt, mit dessen Hilfe man zeitliche Animationen synchronisieren und umsetzen kann.  
+    
+    import { ARButton } from "https://unpkg.com/three@0.133.0/examples/jsm/webxr/ARButton.js";
+    
+		let camera, scene, renderer;
+    let loader;
+    let model;
+    
+    let closeTween, pushbackTween;
+    const pushbackCoords = { x: 0, y: -10, z: -5 }; // Dies ist die Startposition des Models . 
+    const closeupCoords = { x: 0, y: 5, z: -5 }; // Dies ist die Endposition des Models.
+    
+    let coords = { x: 0, y: -10, z: -5 }; // // Anschließend kehrt das model wieder auf die Startposition zurück.
+
+		init();
+		animate();
+
+		function init() {
+			const container = document.createElement('div');
+			document.body.appendChild(container);
+
+			scene = new THREE.Scene();
+
+			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 40);
+
+			renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.xr.enabled = true;
+			container.appendChild(renderer.domElement);
+
+			var light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+			light.position.set(0.5, 1, 0.25);
+			scene.add(light);
+      
+      const modelUrl = 'https://cdn.glitch.me/84c4dc6d-1083-4fb6-b419-048dbca3be71/scene(9)_dunst.glb?v=1686567668140';
+
+     			loader = new THREE.GLTFLoader();
+			loader.load(
+				modelUrl,
+				function (gltf) {
+          model = gltf.scene;
+          model.position.z = coords.x;
+          model.position.y = coords.y;
+          model.position.x = coords.x;
+					scene.add(model);
+          console.log("Model added to scene");
+				},
+				function (xhr) {
+		      // console.log((xhr.loaded / xhr.total * 100) + '% loaded' );
+	      },
+				function (error) {
+					console.error(error);
+				}
+			);
+      
+      
+      
+      setupAnimation(); // Hier beginnen die Einstellungen der Tween animations.
+
+      const button = ARButton.createButton(renderer);
+			document.body.appendChild(button);
+      button.addEventListener('click', () => {
+        closeTween.start();
+      }); //  Die Animation startet in dem Moment, in dem jemand auf Starte AR auf dem Smartphone klickt.
+
+			window.addEventListener('resize', onWindowResize, false);
+		}
+    
+    function setupAnimation() {
+      const milliseconds = 35000; // entspricht 35 Sekunden.
+      
+      // Tween 1: Die Animation bewirkt, dass das Model sich der z-Achse nähert, sich also in die Richtung des Nutzers bewegt, nach { x: 0, y: 5, z: -5 }. 
+      closeTween = new TWEEN.Tween(coords).to(closeupCoords, milliseconds);
+      
+      // Es gibt verschiedene Bewegungskurven, durch die Art und Weise der Bewegung des Models bestimmt werden. Hier wird eine kontinuierliche Geschwindigkeit gewählt. 
+      // Es gibt versch Möglichkeiten, z.B. exponentiell etc. : https://sole.github.io/tween.js/examples/03_graphs.html
+      closeTween.easing(TWEEN.Easing.Quadratic.Out);
+      
+      // // TweenJS kümmert sich hier um die Änderung des Wertes des Models im Koordinationsystem. Im Beispiel von { x: 0, y: -10, z: -5 } auf { x: 0, y: 5, z: -5 } in 35s.
+      // Bei jeder Änderung des Wertes des Models im Koordinationsystem wird das mesh mit den entsprechenden Koordination upgedated. 
+      closeTween.onUpdate(() => {
+          model.position.set(coords.x, coords.y, coords.z);
+          // console.log("z", coords.z);
+      });
+      
+      // Im Zweiten Schritt bewegt sich das Model wieder auf seine ursprüngliche Position zurück. { x: 0, y: -10, z: -5 }
+      pushbackTween = new TWEEN.Tween(coords).to(pushbackCoords, milliseconds);
+      pushbackTween.easing(TWEEN.Easing.Bounce.In); // hier wurde eine andere Bewegungskurve ausprobiert!
+      pushbackTween.onUpdate(() => {
+          model.position.set(coords.x, coords.y, coords.z);
+          // console.log("z", coords.z);
+      });
+      
+      closeTween.chain(pushbackTween); // // Nachdem tween 1 endet, startet tween 2 automatisch. 
+      pushbackTween.chain(closeTween); // Nachdem tween 2 endet, startet tween 1 automatisch. 
+    }
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
+
+		function animate() {
+			renderer.setAnimationLoop(render);
+		}
+
+		function render() {   
+      TWEEN.update(); // Wichtig! Die Aninmation tweens muss andauernd Updated werden.
+      
+			renderer.render(scene, camera);
+		}
+
+	</script>
+</body>
+
+</html>

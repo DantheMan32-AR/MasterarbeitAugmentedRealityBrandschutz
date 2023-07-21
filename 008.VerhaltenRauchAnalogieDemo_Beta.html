@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>VerhaltenRauchAnalogieDemo_Beta</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<link type="text/css" rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/three@0.133.0/build/three.js" crossorigin="anonymous"></script>
+   <script src="https://unpkg.com/three@0.133.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+</head>
+
+<body>
+  
+	<script type="module">
+    
+    
+    import { ARButton } from "https://unpkg.com/three@0.133.0/examples/jsm/webxr/ARButton.js";
+    
+		let camera, scene, renderer;
+    let loader ;
+    let model ;
+    
+    let closeTween, pushbackTween;
+    const pushbackCoords = { x: 0, y: -15, z: -60.5 }; 
+    const closeupCoords = { x: 0, y: 0, z: -60.5 }; 
+    
+    let coords = { x: 0, y: -15.0, z: -60.5 }; 
+
+		init();
+		animate();
+
+		function init() {
+			const container = document.createElement('div');
+			document.body.appendChild(container);
+
+			scene = new THREE.Scene();
+
+			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 40);
+
+			renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.xr.enabled = true;
+			container.appendChild(renderer.domElement);
+
+			var light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+			light.position.set(0.5, 1, 0.25);
+			scene.add(light);
+      //hier wurde versucht, den Rauch unabhängig von dem Abzug Model darzustellen. Array nicht geglückt.
+      //const modelUrl2 = 'https://cdn.glitch.me/84c4dc6d-1083-4fb6-b419-048dbca3be71/scene_dunstabzug.glb?v=1686557940904'
+      const modelUrl = 'https://cdn.glitch.me/84c4dc6d-1083-4fb6-b419-048dbca3be71/scene(9)_dunstabzug.glb?v=1686555459109';
+
+      
+      
+      
+      
+     			loader = new THREE.GLTFLoader();
+			loader.load(
+				modelUrl,
+				function (gltf) {
+          model = gltf.scene;
+          model.position.z = coords.x;
+          model.position.y = coords.y;
+          model.position.x = coords.x;
+					scene.add(model);
+          console.log("Model added to scene");
+				},
+				function (xhr) {
+		      // console.log((xhr.loaded / xhr.total * 100) + '% loaded' );
+	      },
+				function (error) {
+					console.error(error);
+				}
+			);
+      
+      
+      
+      setupAnimation(); 
+
+      const button = ARButton.createButton(renderer);
+			document.body.appendChild(button);
+      button.addEventListener('click', () => {
+        closeTween.start();
+      }); // we start the animation when clicking on "Start AR"
+
+			window.addEventListener('resize', onWindowResize, false);
+		}
+    
+    function setupAnimation() {
+      const milliseconds = 15000; 
+      
+      
+      closeTween = new TWEEN.Tween(coords).to(closeupCoords, milliseconds);
+      
+      
+      closeTween.easing(TWEEN.Easing.Quadratic.Out);
+      
+      
+      closeTween.onUpdate(() => {
+          model.position.set(coords.x, coords.y, coords.z);
+          // console.log("z", coords.z);
+      });
+      
+      
+      pushbackTween = new TWEEN.Tween(coords).to(pushbackCoords, milliseconds);
+      pushbackTween.easing(TWEEN.Easing.Bounce.In); 
+      pushbackTween.onUpdate(() => {
+          model.position.set(coords.x, coords.y, coords.z);
+          
+      });
+      
+      closeTween.chain(pushbackTween); 
+      pushbackTween.chain(closeTween); 
+    }
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
+
+		function animate() {
+			renderer.setAnimationLoop(render);
+		}
+
+		function render() {   
+      TWEEN.update(); // Important! Update the animation tweens
+      
+			renderer.render(scene, camera);
+		}
+
+	</script>
+  
+
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>3D Model - glb</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<link type="text/css" rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/three@0.133.0/build/three.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/three@0.133.0/examples/js/loaders/GLTFLoader.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+</head>
+
+<body>
+	<script type="module">
+    import { ARButton } from 'https://unpkg.com/three@0.133.0/examples/jsm/webxr/ARButton.js';
+    
+		let camera, scene, renderer;
+		let loader; // we need to create a variable for a glb model loader
+    let model;
+
+		init();
+		animate();
+
+		function init() {
+			const container = document.createElement('div');
+			document.body.appendChild(container);
+
+			scene = new THREE.Scene();
+
+			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 40);
+
+			renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.xr.enabled = true; // we have to enable the renderer for webxr
+			container.appendChild(renderer.domElement);
+
+			var light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+			light.position.set(0.5, 1, 0.25);
+			scene.add(light);
+
+      // specify a model URL
+      const modelUrl = 'https://cdn.glitch.me/84c4dc6d-1083-4fb6-b419-048dbca3be71/scene_dunstabzug.glb?v=1686557940904';
+      
+			// create a GLTF loader object. GLTF is a 3D model format usually called the "JPEG of 3D" because it is
+      // fast and efficient to use, which is ideal for the web
+			loader = new THREE.GLTFLoader();
+      
+      // learn about other types of 3D model formats you can use here: 
+      // https://threejs.org/docs/#manual/en/introduction/Loading-3D-models
+      
+      // load the model
+      // loader takes in a few arguments loader(model url, onLoad callback, onProgress callback, onError callback)
+			loader.load(
+				// model URL
+				modelUrl,
+				// onLoad callback: what get's called once the full model has loaded
+				function (gltf) {
+          // gltf.scene contains the Three.js object group that represents the 3d object of the model
+					scene.add(gltf.scene);
+          console.log("Model added to scene");
+          
+          gltf.scene.scale.multiplyScalar(3);
+          //gltf.color = "brown";
+          // you can optionally change the position of the model
+          gltf.scene.position.z = -5.5; // negative Z moves the model in the opposite direction the camera is facing
+          gltf.scene.position.y = -1.5; // positive Y moves the model up
+          // gltf.scene.position.x = 10; // positive X moves the model to the right
+				},
+				// onProgress callback: optional function for showing progress on model load
+				function (xhr) {
+		      // console.log((xhr.loaded / xhr.total * 100) + '% loaded' );
+	      },
+				// onError callback
+				function (error) {
+					console.error(error);
+				}
+			);
+
+			document.body.appendChild(ARButton.createButton(renderer));
+
+			window.addEventListener('resize', onWindowResize, false);
+		}
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
+
+		function animate() {
+			renderer.setAnimationLoop(render);
+		}
+
+		function render() {
+			renderer.render(scene, camera);
+		}
+
+	</script>
+</body>
+
+</html>

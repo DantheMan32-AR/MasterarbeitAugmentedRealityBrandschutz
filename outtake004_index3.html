@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<!-- Anmerkung: Die einzelnen Elemente werden nur bei deren Einführung mit einem Kommentar erläutert, spätere Nutzung gleicher Elemente wird nicht kommentiert -->
+<!-- Beginn der Webseite, Sprache für schriftliche Elemente auf Deutsch -->
+<html lang="de">
+  <head>
+    <!-- Name der Webseite -->
+    <title>Versuch_AFrame_Bilderreihe</title>
+    <!-- Zeichenset wählen -->
+    <meta charset="utf-8" />
+    <!-- Einstellungen für mobiele Endgeräte -->
+    <meta name="description" content="width=device-width, initial-scale=1" />
+    <!-- Einbinden der benötigten npm-Module -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+  </head>
+
+  <body style="margin: 0px; overflow: hidden">
+    <!-- Überschrift und Beschreibung der Webseite -->
+    <h1>Prototyp AR in Unterrichtsskripten</h1>
+    <p>
+      Diese Webseite ist nicht scrollbar, bitte wenn erforderlich, zur
+      Navigation die Links benutzen.
+      <br /><br />
+      Eine Umsetzung von Interaktionenen innerhalb des Prototypen ist nicht
+      gelungen.
+      <br />Jede AR-Szene wird vor ihrem Vorschau-Frame beschrieben. Um die
+      Szene zu starten, muss auf den Button "AR" geklickt werden, im
+      Desktoprechner-Modus auf "VR".
+    </p>
+    <!-- Erstellen des Navigationsmenüs anhand von Sprungmarkern -->
+    <nav>
+      <ul id="navigation">
+        <li><a href="#sec1">"Unser" Internet</a></li>
+        <li>
+          <a href="#sec2"
+            >Hypermedia und Internet - Ein Zusammenspiel von Technologie,
+            Medien, Gestaltung ... und Mensch</a
+          >
+        </li>
+        <li><a href="#sec3">Allgemeine Grundbegriffe</a></li>
+      </ul>
+    </nav>
+    <!-- Neuladen der Webseite bei Klick erzwingen -->
+    Seite <a href="">Neuladen</a>
+    <!-- Section: Zusammenfassen der Folien zu eigenen Kapiteln, wird für die Navigation benötigt -->
+    <section id="sec1">
+      <!-- Überschrift und Beschreibung der Folie -->
+      <h2>
+        Kategorie: Historik, Kapitel Einführung, Titel: "Unser" Internet. Folie
+        28-32
+      </h2>
+      <p>
+        Die Folien enthalten im Orginal eine Auflistung der geschichtlichen
+        Ereignisse mit gelegentlichen Bildern. <br />
+        Diese Folie ist animiert. Bitte das Device ruhig halten und abwarten.
+        <br /><a href="#">nach oben</a>
+      </p>
+
+      <!-- Erstellen des div-Conatainers für die mehrfach Nutzung von a-scene -->
+      <div id="inline-ar-folie28">
+        <!-- Erstellen der AR-Szene -->
+        <a-scene embedded arjs>
+          <!-- Einbinden der Bilder für die Szene, die Quellen werden jeweils über dem Bild angegeben -->
+          <a-assets>
+            <!-- Quelle: https://www.netplanet.org/geschichte/arpa.shtml; Abgerufen am 09.01.2023 -->
+            <a-asset>
+              <img
+                id="dgvu_treppe"
+                src="https://cdn.glitch.global/84c4dc6d-1083-4fb6-b419-048dbca3be71/dgvu_treppe.jpg?v=1687108179151"
+              />
+            </a-asset>
+
+            <!-- Quelle: https://www.heise.de/newsticker/meldung/Vor-30-Jahren-Erste-Internet-Mail-erreicht-Deutschland-2281756.html; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="erstemaildeutschland"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/erstemaildeutschland.png?v=1673281511060"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.servercake.blog/first-network-email-sent-ray-tomlinson/; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="firstmail"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/firstmail.png?v=1673282669248"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.darpa.mil/about-us/timeline/tcp-ip; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="1974"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/1974.png?v=1673282903166"
+              />
+            </a-asset>
+            <!-- Quelle: https://commons.wikimedia.org/wiki/File:ARPANET_-_MILNT_Diagram_1984.jpg; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="400arparechner"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/arpanet1984.png?v=1673283012152"
+              />
+            </a-asset>
+            <!-- https://home.cern/science/computing/birth-web; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="komnutzweb"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/birthwww?v=1673283118353"
+              />
+            </a-asset>
+            <!-- https://cds.cern.ch/images/CERN-IT-9001001-01/file?size=large; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="1990"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/1990?v=1673283426778"
+              />
+            </a-asset>
+            <!-- https://history-computer.com/Internet/images/mosaic_beta.jpg; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="1992"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/1992.png?v=1673283994064"
+              />
+            </a-asset>
+            <!-- https://d2bs8hqp6qvsw6.cloudfront.net/article/images/750x750/dimg/netscape-3.jpg; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="1994"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/1994.png?v=1673284234227"
+              />
+            </a-asset>
+            <!-- https://www.versionmuseum.com/images/applications/internet-explorer/internet-explorer%5E1995%5Eie-2.0-windows-home.png; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="1995"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/1995IE.png?v=1673284365197"
+              />
+            </a-asset>
+            <!-- https://www.binarybulls.com/wp-content/uploads/2016/06/2.0application.jpg; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="web2"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/web2.png?v=1673285352957"
+              />
+            </a-asset>
+            <!-- https://www.w3.org/International/articles/serving-xhtml/index-data/standards-scan.png; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="xhtml"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/xhtml.png?v=1673285520198"
+              />
+            </a-asset>
+            <!-- https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Valid_HTML_4.0.1.svg/1280px-Valid_HTML_4.0.1.svg.png; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="html401"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/html401.png?v=1673285642458"
+              />
+            </a-asset>
+            <!-- https://s3.amazonaws.com/s3.timetoast.com/public/uploads/photo/6836084/image/4133ab0a30ebd49b3080f379694c8aa0; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="html32"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/html32.png?v=1673285955052"
+              />
+            </a-asset>
+            <!-- https://3.bp.blogspot.com/-7pXla4gYcSU/XB-aQElY_zI/AAAAAAAAHTA/soP-84BDatwdPyeo3jrwtQxQAvzbQIbUgCLcBGAs/s1600/js_css_html.png; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="javacss"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/javascript_css.png?v=1673286078881"
+              />
+            </a-asset>
+            <!-- http://www.prospective.ch/wp-content/uploads/2008/11/web201.png; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="web2boom"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/web2boom.png?v=1673286838538"
+              />
+            </a-asset>
+            <!-- https://en.slow-media.net/about; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="slowmedia"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/slowmedia.png?v=1673286950034"
+              />
+            </a-asset>
+            <!-- https://thumbs.dreamstime.com/z/social-web-16733701.jpg; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="socialweb"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/socialweb.png?v=1673287179006"
+              />
+            </a-asset>
+            <!-- https://www.besanttechnologies.com/wp-content/uploads/2017/12/differences-between-html-and-html5.png; Abgerufen am 09.01.2023-->
+            <a-asset>
+              <img
+                id="html5"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/html5.png?v=1673287272263"
+              />
+            </a-asset>
+          </a-assets>
+          <!-- Aufbau der AR Szene durch Text und Bild Element, diese werden animiert -->
+          <a-text
+            value="Die Fruehzeit"
+            color="darkgrey"
+            width="10"
+            hight="10"
+            position="-3 3 -6"
+            animation="property: position; to: -7 10 -6; dur: 2000; easing: linear; loop: false; delay: 23000"
+          >
+          </a-text>
+          <!-- Zeilenumbruch -->
+          <a-text
+            value="1968 \n Arpanet"
+            color="grey"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 5000"
+            animation__2="property: position; to: -7 9 -6; dur: 2000; easing: linear; loop: false; delay: 8000"
+          >
+          </a-text>
+          <a-image
+            src="#arpanetfrueh"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 5000"
+            animation__2="property: visible; from: true; to: false; delay: 8000"
+          ></a-image>
+
+          <a-text
+            value="1972 \n Erste E-Mail"
+            color="grey"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 8500"
+            animation__2="property: position; to: -5 9 -6; dur: 2000; easing: linear; loop: false; delay: 11500"
+          >
+          </a-text>
+          <a-image
+            src="#firstmail"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 8500"
+            animation__2="property: visible; from: true; to: false; delay: 11500"
+          ></a-image>
+
+          <a-text
+            value="1974 \n Internet "
+            color="grey"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 12000"
+            animation__2="property: position; to: -2 9 -6; dur: 2000; easing: linear; loop: false; delay: 15000"
+          >
+          </a-text>
+          <a-image
+            src="#1974"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 12000"
+            animation__2="property: visible; from: true; to: false; delay: 15000"
+          ></a-image>
+
+          <a-text
+            value="1983 \n 400 vernetzte \n Rechner im Arpanet"
+            color="grey"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 15500"
+            animation__2="property: position; to: 0 9 -6; dur: 2000; easing: linear; loop: false; delay: 18500"
+          >
+          </a-text>
+          <a-image
+            src="#400arparechner"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 15500"
+            animation__2="property: visible; from: true; to: false; delay: 18500"
+          ></a-image>
+
+          <a-text
+            value="1984 \n erste E-Mail \n in Deutschland"
+            color="grey"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 19000"
+            animation__2="property: position; to: 4 9 -6; dur: 2000; easing: linear; loop: false; delay: 22000"
+          >
+          </a-text>
+          <a-image
+            src="#erstemaildeutschland"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 19000"
+            animation__2="property: visible; from: true; to: false; delay: 22000"
+          ></a-image>
+
+          <a-text
+            value="1989/90 \n Freigabe des Internets \n (kommerzielle Nutzung)"
+            color="grey"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 22500"
+            animation__2="property: position; to: 7 9 -6; dur: 2000; easing: linear; loop: false; delay: 25500"
+          >
+          </a-text>
+          <a-image
+            src="#komnutzweb"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 22500"
+            animation__2="property: visible; from: true; to: false; delay: 25500"
+          ></a-image>
+
+          <!-- Zeilenumbruch -->
+          <a-text
+            value="Die Zeit des WWW"
+            color="darkblue"
+            width="10"
+            hight="10"
+            position="-3 3 -6"
+            animation="property: visible; from: false; to: true; dur: 23000"
+            animation__2="property: position; to: -7 7.5 -6; dur: 2000; easing: linear; loop: false; delay: 73500"
+          >
+          </a-text>
+          <!-- Zeilenumbruch -->
+          <a-text
+            value="1990 \n Hypertext-Projekt \n von Berners-Lee \n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 26500"
+            animation__2="property: position; to: -7 6 -6; dur: 2000; easing: linear; loop: false; delay: 29500"
+          >
+          </a-text>
+          <a-image
+            src="#1990"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 26500"
+            animation__2="property: visible; from: true; to: false; delay: 33000"
+          ></a-image>
+
+          <a-text
+            value="1991 \n WWW startet \n in CERN \n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 30000"
+            animation__2="property: position; to: -3 6 -6; dur: 2000; easing: linear; loop: false; delay: 33000"
+          >
+          </a-text>
+          <a-text
+            value="1992 \n erste Version \n von Mosaic\n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 33500"
+            animation__2="property: position; to: 0 6 -6; dur: 2000; easing: linear; loop: false; delay: 36500"
+          >
+          </a-text>
+          <a-image
+            src="#1992"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 33500"
+            animation__2="property: visible; from: true; to: false; delay: 36500"
+          ></a-image>
+          <a-text
+            value="1994 \n 1. WWW-Konferenz \n HTML2 \n Gruendung Netsacap "
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 37000"
+            animation__2="property: position; to: 3 6 -6; dur: 2000; easing: linear; loop: false; delay: 40000"
+          >
+          </a-text>
+          <a-image
+            src="#1994"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 37000"
+            animation__2="property: visible; from: true; to: false; delay: 40000"
+          ></a-image>
+
+          <a-text
+            value="1995 \n Veroeffentlichung  \n des IE 1.0 \n Gruendung W3C"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 40500"
+            animation__2="property: position; to: 8 6 -6; dur: 2000; easing: linear; loop: false; delay: 43500"
+          >
+          </a-text>
+          <a-image
+            src="#1995"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 40500"
+            animation__2="property: visible; from: true; to: false; delay: 43500"
+          ></a-image>
+          <!-- Zeilenumbruch -->
+
+          <a-text
+            value="1996 \n Erster Enwurf \n JavaScript, CSS \n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 44000"
+            animation__2="property: position; to: -7 4 -6; dur: 2000; easing: linear; loop: false; delay: 47000"
+          >
+          </a-text>
+          <a-image
+            src="#javacss"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 44000"
+            animation__2="property: visible; from: true; to: false; delay: 47000"
+          ></a-image>
+
+          <a-text
+            value="1997 \n Januar: HTML3.2 \n Dezember: HTML4 \n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 47500"
+            animation__2="property: position; to: -3 4 -6; dur: 2000; easing: linear; loop: false; delay: 50000"
+          >
+          </a-text>
+          <a-image
+            src="#html401"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 47500"
+            animation__2="property: visible; from: true; to: false; delay: 50000"
+          ></a-image>
+
+          <a-text
+            value="1999 \n HTML 4.01 \n\n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 50500"
+            animation__2="property: position; to: 2 4 -6; dur: 2000; easing: linear; loop: false; delay: 53500"
+          >
+          </a-text>
+          <a-image
+            src="#html401"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 50500"
+            animation__2="property: visible; from: true; to: false; delay: 53500"
+          ></a-image>
+
+          <a-text
+            value="2000 \n XHTML \n Platzen der \n Dotcom-Blase"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 54000"
+            animation__2="property: position; to: 8 4 -6; dur: 2000; easing: linear; loop: false; delay: 57000"
+          >
+          </a-text>
+          <a-image
+            src="#xhtml"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 54000"
+            animation__2="property: visible; from: true; to: false; delay: 57000"
+          ></a-image>
+
+          <!-- Zeilenumbruch -->
+          <a-text
+            value="2004 \n Beginn Web 2.0 \n\n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 57500"
+            animation__2="property: position; to: -7 2 -6; dur: 2000; easing: linear; loop: false; delay: 60500"
+          >
+          </a-text>
+          <a-image
+            src="#1995"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 57500"
+            animation__2="property: visible; from: true; to: false; delay: 60500"
+          ></a-image>
+
+          <a-text
+            value="2005/8 \n Web 2.0 Boom \n\n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 61000"
+            animation__2="property: position; to: -3 2 -6; dur: 2000; easing: linear; loop: false; delay: 63000"
+          >
+          </a-text>
+          <a-image
+            src="#web2boom"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 61000"
+            animation__2="property: visible; from: true; to: false; delay: 63000"
+          ></a-image>
+
+          <a-text
+            value="2009 \n Slow Media: \n Post-Web 2.0 \n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 63500"
+            animation__2="property: position; to: 1 2 -6; dur: 2000; easing: linear; loop: false; delay: 66500"
+          >
+          </a-text>
+          <a-image
+            src="#slowmedia"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 63500"
+            animation__2="property: visible; from: true; to: false; delay: 66500"
+          ></a-image>
+
+          <a-text
+            value="2010 \n Socaial Web \n\n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 67000"
+            animation__2="property: position; to: 5 2 -6; dur: 2000; easing: linear; loop: false; delay: 70000"
+          >
+          </a-text>
+          <a-image
+            src="#socialweb"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 67000"
+            animation__2="property: visible; from: true; to: false; delay: 70000"
+          ></a-image>
+
+          <a-text
+            value="2011 \n HTML 5 \n (11. Arbeitsentwurf)\n"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+            animation="property: visible; from: false; to: true; dur: 70500"
+            animation__2="property: position; to: 8 2 -6; dur: 2000; easing: linear; loop: false; delay: 73500"
+          >
+          </a-text>
+          <a-image
+            src="#html5"
+            position="0 -1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.5"
+            animation="property: visible; from: false; to: true; dur: 70500"
+            animation__2="property: visible; from: true; to: false; delay: 73500"
+          ></a-image>
+        </a-scene>
+        <!-- iframe wird genutzt, um mehrere AR-Szenen hinter einander auf der gleichen Webseite darstellen zu können -->
+        <iframe
+          id="folie28-iframe"
+          allow="camera;gyroscope;accelerometer;magnetometer;"
+        >
+        </iframe>
+      </div>
+    </section>
+
+    <section id="sec2">
+      <h2>
+        Kategorie: Modell, Kapitel Allgemeines: Hypermedia und Internet - Ein
+        Zusammenspiel von Technologie, Medien, Gestaltung ... und Mensch. Folie
+        35
+      </h2>
+      <p>
+        Die Folie besteht im Orginal aus vier Kreisen, die einander zugewandt
+        das Zusammenspiel für Hypermedia und das Internet darstellen. <br />
+        Innerhalb dieser Szene steht der Anwender im Zentrum und dreht sich um
+        360° um seine eigene Achse, um die verschiedenen Aspekte wahrzunehmen.
+        <br /><a href="#">nach oben</a>
+      </p>
+
+      <div id="inline-ar-folie35">
+        <a-scene embedded arjs>
+          <a-assets>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/benutzer-avatar_7902891?term=benutzer&page=1&position=13&origin=search&related_id=7902891; Abgerufen am 11.01.2023 -->
+            <a-asset>
+              <img
+                id="35nutzer"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/35benutzer.png?v=1673467729177"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/interaktive-anzeige_7324018?term=interaktiv&page=1&position=1&origin=search&related_id=7324018; Abgerufen am 11.01.2023 -->
+            <a-asset>
+              <img
+                id="35interaktiviaet"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/35interaktivitaet.png?v=1673467869499"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/passiver-kandidat_3321719?term=passiv&page=1&position=87&origin=search&related_id=3321719; Abgerufen am 11.01.2023 -->
+            <a-asset>
+              <img
+                id="35interpassivitaet"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/35interpassiv.png?v=1673468099974"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/megaphon_1997928?term=medien&page=1&position=9&origin=search&related_id=1997928; Abgerufen am 11.01.2023 -->
+            <a-asset>
+              <img
+                id="35medien"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/35medien.png?v=1673468179373"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/bild_3056317?term=text+bild&page=1&position=11&origin=search&related_id=3056317; Abgerufen am 11.01.2023 -->
+            <a-asset>
+              <img
+                id="35textbild"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/35textbild.png?v=1673468264533"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/smart-tv_3139766?term=tv&page=1&position=7&origin=search&related_id=3139766; Abgerufen am 11.01.2023 -->
+            <a-asset>
+              <img
+                id="35tv"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/35tv.png?v=1673468385092"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/computer_182383?term=computer+internet&page=1&position=18&origin=search&related_id=182383; Abgerufen am 11.01.2023 -->
+            <a-asset>
+              <img
+                id="35computer"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/35computer.png?v=1673468470976"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/recycelte-technik_7400171?term=technik&page=1&position=17&origin=search&related_id=7400171; Abgerufen am 12.01.2023 -->
+            <a-asset>
+              <img
+                id="35technik"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/recycelte-technik.png?v=1673529870879"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/free-icon/right-arrow-from-a-line_60658?term=straight&page=1&position=45&origin=search&related_id=60658; Abgerufen am 12.01.2023 -->
+            <a-asset>
+              <img
+                id="35linear"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/decision-making.png?v=1673530283991"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/free-icon/molecular_87125?term=multi&page=1&position=11&origin=search&related_id=87125; Abgerufen am 12.01.2023 -->
+            <a-asset>
+              <img
+                id="35multi"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/molecular.png?v=1673530075391"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/free-icon/multi_8153173?term=multi+media&page=1&position=11&origin=search&related_id=8153173; Abgerufen am 12.01.2023 -->
+            <a-asset>
+              <img
+                id="35hyper"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/multi.png?v=1673530517078"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/redaktionellen-gestaltung_1188503?term=gestaltung&page=1&position=4&origin=search&related_id=1188503; Abgerufen am 12.01.2023 -->
+            <a-asset>
+              <img
+                id="35gestaltung"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/redaktionellen-gestaltung.png?v=1673530610353"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/free-icon/device_2905997?term=devices&related_id=2905997; Abgerufen am 12.01.2023 -->
+            <a-asset>
+              <img
+                id="35divergenz"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/device.png?v=1673530714688"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/zusammen_1622665?term=zusammen&page=1&position=32&origin=search&related_id=1622665; Abgerufen am 12.01.2023 -->
+            <a-asset>
+              <img
+                id="35konvergenz"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/zusammen.png?v=1673530860381"
+              />
+            </a-asset>
+            <!-- Quelle: https://www.flaticon.com/de/kostenloses-icon/interaktion_992323?term=interaktion&page=1&position=16&origin=search&related_id=992323; Abgerufen am 12.01.2023 -->
+            <a-asset>
+              <img
+                id="35interaktion"
+                src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/interaktion.png?v=1673530968845"
+              />
+            </a-asset>
+          </a-assets>
+
+          <a-text
+            value="Benutzer"
+            color="red"
+            width="10"
+            hight="10"
+            position="-1 2 -6"
+          ></a-text>
+          <a-image
+            src="#35nutzer"
+            position="-1 4 -6"
+            opacity="0.9"
+            width="2"
+            height="2"
+          ></a-image>
+          <a-text
+            value="Interaktivitaet \n Interpassivitaet"
+            color="pink"
+            width="10"
+            hight="10"
+            position="-1 1 -6"
+          ></a-text>
+
+          <a-image
+            src="#35interpassivitaet"
+            position="4 1 -6"
+            width="2"
+            height="1.5"
+            opacity="0.9"
+          ></a-image>
+          <a-image
+            src="#35interaktiviaet"
+            position="-3 1 -6"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+
+          <a-text
+            value="Medien"
+            color="blue"
+            width="10"
+            hight="10"
+            position="-9 3 0"
+            rotation="0 90 0"
+          ></a-text>
+          <a-image
+            src="#35medien"
+            position="-9 5 0"
+            rotation="0 90 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-text
+            value="Text, Bild \n digitales Fernsehen \n IPTV \n Computer, Internet"
+            color="lightblue"
+            width="10"
+            hight="10"
+            position="-9 1 0"
+            rotation="0 90 0"
+          ></a-text>
+          <a-image
+            src="#35textbild"
+            position="-12 1 0"
+            rotation="0 90 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image
+          ><a-image
+            src="#35tv"
+            position="-9 -2 0"
+            rotation="0 90 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-image
+            src="#35computer"
+            position="-6 1 0"
+            rotation="0 90 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-text
+            value="Technik"
+            color="pink"
+            width="10"
+            hight="10"
+            position="9 3 0"
+            rotation="0 -90 0"
+          ></a-text>
+          <a-image
+            src="#35technik"
+            position="9 5 0"
+            rotation="0 -90 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-text
+            value="Multimedialitaet \n Nichtliniaritaet \n Hypermedialitaet"
+            color="purple"
+            width="10"
+            hight="10"
+            position="12 1 0"
+            rotation="0 -90 0"
+            opacity="0.9"
+          ></a-text>
+          <a-image
+            src="#35multi"
+            position="12 -1 0"
+            rotation="0 -90 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-image
+            src="#35linear"
+            position="9 -1 0"
+            rotation="0 -90 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-image
+            src="#35hyper"
+            position="7 -1 0"
+            rotation="0 -90 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-text
+            value="Gestaltung"
+            color="green"
+            width="10"
+            hight="10"
+            position="1 2 6"
+            rotation="0 180 0"
+          ></a-text>
+          <a-image
+            src="#35gestaltung"
+            position="1 4 6"
+            rotation="0 180 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-text
+            value="Medienkonvergenz \n Geraetedivergenz \n Interaktionskonvergenz/-divergenz"
+            color="lightgreen"
+            width="10"
+            hight="10"
+            position="1 1 6"
+            rotation="0 180 0"
+          ></a-text>
+          <a-image
+            src="#35konvergenz"
+            position="-1 1 6"
+            rotation="0 180 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-image
+            src="#35divergenz"
+            position="1 -1 6"
+            rotation="0 180 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <a-image
+            src="#35interaktion"
+            position="3 1 6"
+            rotation="0 180 0"
+            width="2"
+            height="2"
+            opacity="0.9"
+          ></a-image>
+          <iframe
+            id="folie35-iframe"
+            allow="camera;gyroscope;accelerometer;magnetometer;"
+          >
+          </iframe>
+        </a-scene>
+      </div>
+    </section>
+    <section id="sec3">
+      <h2>
+        Kategorie: Theorie, Kapitel Grundlagen, Titel: Allgemeine Grundbegriffe.
+        Folie 50-51
+      </h2>
+      <p>
+        Die Orginalfolien enhalten, über zwei Seiten verteilt, die allgemeinen
+        Grundbegriffe in Textform.
+        <br /><a href="#">nach oben</a>
+      </p>
+
+      <div id="inline-ar-folie50">
+        <a-scene embedded arjs>
+          <!-- Vorladen von extern genutzen Quellen um das laden zu beschleunigen -->
+          <!-- Einbinden der 3D-Elemente und Bilder für die Szene, die Quellen werden jeweils über dem Bild angegeben -->
+          <a-assets>
+            <!-- Quelle: https://free3d.com/3d-model/male-base-mesh-6682.html; Abgerufen am 04.01.2023 -->
+            <a-asset-item
+              id="person"
+              src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/person.obj?v=1672406337683"
+            >
+            </a-asset-item>
+            <!-- Quelle: https://free3d.com/3d-model/hp-laptop-high-poly--29640.html; Abgerufen am 04.01.2023 -->
+            <a-asset-item
+              id="laptop"
+              src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/laptop.obj?v=1672825842119"
+            >
+            </a-asset-item>
+            <!--<a href="https://www.flaticon.com/de/kostenlose-icons/browser" title="browser Icons">Browser Icons erstellt von Smashicons - Flaticon</a>-->
+            <img
+              id="browser"
+              src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/browser.png?v=1672828655818"
+            />
+            <!--Quelle: https://free3d.com/3d-model/main-frame-server-3d-model-with-texture-338981.html; Abgerufen am 04.01.2023-->
+            <a-asset-item
+              id="server"
+              src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/server.obj?v=1672831803134"
+            ></a-asset-item>
+            <img
+              id="servervorne"
+              src="https://cdn.glitch.global/58fc0631-93a1-4c90-b53e-c57a6c856b9f/server%20front.png?v=1672832294277"
+            />
+          </a-assets>
+          <!-- Bindet obj-Modell (3D-Modell) in AR-Szene ein, Skalierung ist wichtig, da ansonsten das Modell übermäßig groß ist -->
+          <a-entity
+            position="-4 0 -6"
+            obj-model="obj: #person"
+            scale="0.2 0.2 0.2"
+          ></a-entity>
+          <a-text
+            value="Benutzer \n Person, die 'mit dem Web' interagiert \n 'Entitaet' die mit dem Internet interagiert \n -> IOT!"
+            hight="10"
+            position="-5 -1 -6"
+          ></a-text>
+
+          <a-entity
+            position="0 2 -6"
+            obj-model="obj: #laptop"
+            scale="0.5 0.5 0.5"
+          ></a-entity>
+          <!-- Box wird als Hintergrund Element für ein Bild genutzt -->
+          <a-box
+            src="#browser"
+            color="white"
+            depth="0"
+            height="1"
+            width="1"
+            position="0 3 -6.5"
+          ></a-box>
+          <a-text
+            value="Client \n Programm, dass vom Rechner\n des Benutzers auf\n entfernte Web-Server zugreift \n Browser \n spezielle Art von Client fuer \n die Nutzung im Web \n greift auf Ressourcen zu, \n die auf Web-Servern gespeichert sind \n User Agent \n Browser greift stellvertretend \n als Agent des Benutzers zu"
+            hight="10"
+            position="0 0 -6"
+          ></a-text>
+
+          <a-entity
+            position="4 2 -6"
+            obj-model="obj: #server"
+            scale="0.01 0.01 0.01"
+            material="src: #servervorne"
+          ></a-entity>
+          <a-text
+            value="Server\n Programm/Prozess auf einem Rechner,\n der Funktionalitaeten bereitstellt,\n um anfragen von Clients zu be-/verarbeiten\n Web-Server\n Spezialisierte Art von Client fuer die Nutzung im Web\n stellt Ressourcen berit,\n auf die Web-Clients zugreifen koennen"
+            hight="10"
+            position="4 0 -6"
+          ></a-text>
+
+          <iframe
+            id="folie50-iframe"
+            allow="camera;gyroscope;accelerometer;magnetometer;"
+          >
+          </iframe>
+        </a-scene>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>VerhaltensweisenFluchtDemo_03</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<link type="text/css" rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/three@0.133.0/build/three.js" crossorigin="anonymous"></script>
+</head>
+  
+
+<body>
+	<script type="module">
+
+		import { ARButton } from "https://unpkg.com/three@0.133.0/examples/jsm/webxr/ARButton.js";
+
+		let container;
+		let camera, scene, renderer;
+		let controller;
+		let loader;
+		let model;
+
+		init();
+		animate();
+
+		function init() {
+			container = document.createElement('div');
+			document.body.appendChild(container);
+
+			scene = new THREE.Scene();
+			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 200);
+
+			renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.xr.enabled = true; // we have to enable the renderer for webxr
+			container.appendChild(renderer.domElement);
+
+			var light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+			light.position.set(0.5, 1, 0.25);
+			scene.add(light);
+
+			// An dieser Stelle wird ein 2D Bild geladen (aus glitch)
+      const url = 'https://cdn.glitch.global/84c4dc6d-1083-4fb6-b419-048dbca3be71/lff_fluchtwegversperrt..jpg?v=1687108186562';
+      const imageMesh = createMeshWithImage(url);
+      imageMesh.position.set(0, 0, -1);
+      scene.add(imageMesh);
+      
+      
+      
+
+			const button = ARButton.createButton(renderer, {
+          optionalFeatures: ["dom-overlay", "dom-overlay-for-handheld-ar"],
+          domOverlay: {
+            root: document.body
+          }
+      });
+      document.body.appendChild(button);
+
+			window.addEventListener('resize', onWindowResize, false);
+		}
+    
+    function createMeshWithImage(url) {
+      // Schritt 1: Eine geometrische Figur erstellen, in die das Bild eingebettet wird
+      const geometry = new THREE.PlaneGeometry(0.5, 0.5); //  Größenverhältnisse stimmen mit Größe des Bildes überein.
+      
+      // Schritt 2: Erstellung des Materials in Verbindung mit dem Bild ; Anschließend Laden des Bildes in eine Karte (map)
+      const loader = new THREE.TextureLoader();
+      const texture = loader.load(url);
+      
+      // Ein gutes Material, dass sowohl einfach als auch nützlich für nicht scheinende Oberflächen ist, ist "Mesh Lambert" 
+      // Nachzulesen unter: https://threejs.org/docs/?q=MeshLambertMaterial#api/en/materials/MeshLambertMaterial
+      const material = new THREE.MeshLambertMaterial({
+        map: texture, // Die Farbkarte des Materials. Im Beispiel weisen wir eine Oberflächenstruktur mit dem Bild zu.
+        side: THREE.DoubleSide // optional; dadurch kann der Nutzer das Bild von beiden Seiten sehen --> Die Einstellung der Kamera ist dann nicht allzu wichtig.
+      })
+      
+      // Schritt 3: Verbinde die geometrische Figur und das Material (im Grunde das Bild) zu einem Gefüge oder "Mesh".
+      const mesh = new THREE.Mesh(geometry, material);
+      return mesh;
+    }
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
+
+		function animate() {
+			renderer.setAnimationLoop(render);
+		}
+
+		function render() {
+			renderer.render(scene, camera);
+		}
+	</script>
+</body>
+
+</html>
