@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Grundlagen_ErklärungCode</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<link type="text/css" rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/three@0.133.0/build/three.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <h1>
+    Prototyp Der Einsatz von Augmented Reality in Schulungen zum Brandschutz 
+  </h1>
+	<script type="module">      
+		let camera, scene, renderer;
+    let mesh;
+
+		init();
+		animate();
+
+		function init() {
+			const container = document.createElement('div');
+			document.body.appendChild(container);
+
+			// Grundsätzlich braucht jede three.js Szene drei Elemente: Eine Szene, eine Kamera und einen Renderer (ähnlich javafx) 
+			// https://threejs.org/docs/#manual/en/introduction/Creating-a-scene
+
+			// 1. Zuerst erstellt man eine Szene, in der anfangs allerdings noch nichts drinnen ist (Aufbau wie Theaterbühne)
+			scene = new THREE.Scene();
+
+			// 2. Als Zweites erstellt man eine Kamera. 
+      // https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+      // Es gibt verschiedene Typen von Kameras: Standardmäßig die PerspectiveCamera mit Attribute( fov : Number, aspect : Number, near : Number, far : Number )
+      // fov — Camera frustum vertical field of view.
+      // aspect — Camera frustum aspect ratio.
+      // near — Camera frustum near plane.
+      // far — Camera frustum far plane. (siehe link)
+			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 40);
+
+			// 3. Als drittes wählt man einen three.js Renderer 
+      // https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+			renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			container.appendChild(renderer.domElement);
+
+			// Diese drei Dinge braucht man immer. Alles was man jetzt weiterhin hinzufügt, ist optional und abhängig on der Aufgabenstellung.
+
+			// 4. Man fügt der Szene Beleuchtung hinzu
+      // https://threejs.org/docs/index.html#api/en/lights/HemisphereLight
+      // HemisphereLight mit Attributen( skyColor : Integer, groundColor : Integer, intensity : Float )
+      // skyColor - (optional) hexadecimal color of the sky. Default is 0xffffff.
+      // groundColor - (optional) hexadecimal color of the ground. Default is 0xffffff.
+      // intensity - (optional) numeric value of the light's strength/intensity. Default is 1.
+			var light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+			light.position.set(0.5, 1, 0.25);
+			scene.add(light);
+
+      // Hier fügt man der Szene beispielsweise einen Polyeder hinzu.
+      // https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry
+      // IcosahedronGeometry(radius : Float, detail : Integer)
+      // radius — Default ist 1.
+      // detail — Default ist 0. Setzt man diesen Wert größer als 0 erhöht man dadurch die Anzahl der Kanten, wodurch man die geometrische Figur verändert.
+      const geometry = new THREE.IcosahedronGeometry(0.1, 1);
+      const material = new THREE.MeshPhongMaterial({
+        color      :  new THREE.Color("rgb(226,35,213)"), // Die drei Werte beschreiben jeweils einen Mix der Grundfarben gelb, rot und blau
+        shininess  :  6,
+        shading    :  true,
+        transparent: 1,
+        opacity    : 0.8
+      });
+      
+      mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(0, 0, -0.5);
+      scene.add(mesh);
+
+			window.addEventListener('resize', onWindowResize, false);
+		}
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
+
+		// diese FUnktion wird nur 1x aufgerufen.
+		function animate() {
+			// die render Funktion wird in einer  Schleife aufgerufen.
+			renderer.setAnimationLoop(render);
+		}
+
+		// Die Render Funktion wird in einer Schleife bei jedem Refresh des Bildschirms aufgerufen
+		// Idr also 60 mal pro Minute (60 frames per second)
+		function render() {
+			renderer.render(scene, camera);
+    }
+	</script>
+</body>
+
+</html>

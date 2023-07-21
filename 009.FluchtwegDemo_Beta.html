@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FluchtwegDemo_Beta</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/three@0.133.0/build/three.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.32/Tone.js"></script>
+  </head>
+
+  <body>
+    <script type="module">
+      // Diese Demo funktioniert sowohl mit Lautsprechern, als auch mit Köpfhörern.
+      // Man kann sich zum grünen Bereich wegbewegen, sich aber auch darauf hinbewegen. Außerdem nach links und rechts. 
+      
+      // Tone.js ist ein Framework ähnlich wie Tween.js, jedoch mit Schwerpunkt auf Audio. Es kann Interaktive Musik im Browser umgesetzt werden.  
+      // Genaueres kann man in folgendem Link nachlesen: https://tonejs.github.io/
+      
+      import { ARButton } from 'https://unpkg.com/three@0.133.0/examples/jsm/webxr/ARButton.js';
+      import { PositionalAudioHelper } from "https://cdn.skypack.dev/three@0.133.0/examples/jsm/helpers/PositionalAudioHelper.js"; //Schritt 1
+      console.log(Tone);
+
+      let container;
+      let camera, scene, renderer;
+      
+      // hier ermöglicht man eine Audio spezifische Listeneraudio Variable.
+      let listener;
+
+      init();
+      animate();
+
+      function init() {
+        container = document.createElement("div");
+        document.body.appendChild(container);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(
+          70,
+          window.innerWidth / window.innerHeight,
+          0.01,
+          20
+        );
+
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.xr.enabled = true; // muss stdmäßig genehmigt werden.
+        container.appendChild(renderer.domElement);
+
+        const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+        light.position.set(0.5, 1, 0.25);
+        scene.add(light);
+
+        const button = ARButton.createButton(renderer, {
+          optionalFeatures: ["dom-overlay", "dom-overlay-for-handheld-ar"],
+          domOverlay: {
+            root: document.body
+          }
+        });
+        document.body.appendChild(button);
+        //Schritt 2; await = Es dauert einen Moment, bis der Ton geladen hat;
+        //ähnlich wie bei javafx: ein Klick Listener, also ein Event, das bei Mausklick auf einen Knopf einsetzt.
+        // Nach dem Mausklick startet der Eventlistener und durch await Tone.start(); wird Tone.js gestartet.
+        button.addEventListener('click', async () => {
+          await Tone.start();
+          
+          setTimeout(setupAudio, 1000); //man wartet genau 1s bis Tone.js fertig ist, bevor man die function setupAudio startet).
+        })
+
+        window.addEventListener("resize", onWindowResize, false);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function animate() {
+        renderer.setAnimationLoop(render);
+      }
+      
+      function render(timestamp, frame) {
+        renderer.render(scene, camera);
+      }
+      
+      
+      
+
+      let audioElement;
+      let audioContext;
+      let resonanceAudioScene;
+      let mesh;
+      
+      const positionOfAudioAndCone = { x: 0, y: 0, z: -0.5 };
+      
+      //Schritt 3  : Entscheidend hierbei ist, dass der Listener an die Kamera geknüpft wird.
+      // In dem Moment, in dem sich die Kamera bewegt, bewegt sich der Listener entsprechend mit.
+      // Somit ist das visuelle Element der Kamera mit dem auditiven Element verknüpft.
+      function setupAudio() {
+        // Erstellung des AudioListeners , Hinzufügen zur Kamera.
+        listener = new THREE.AudioListener();
+        camera.add(listener);
+
+        // hier wird der Audio Sound und die geometrische Figut erstellt.
+        createCone(); // Schritt 3: Man erstellt eine geometrische Figur, von dort kommt der Sound; weiter bei create Cone
+        
+        createToneAudio(); //Schritt 4: 
+      }
+      // Schritt 3 weiter:
+      function createCone() {
+        // // Der Sound von tone.js wird mit einer geometrischen Figur verknüpft. So sieht es für den Nutzer danach aus, als ob der Sound nur in Verbindung mit der geometrischen Figur laufen würde.
+        const cone = new THREE.ConeBufferGeometry(0.1, 8, 5);
+        const material = new THREE.MeshPhongMaterial({ color: 0x00FF00 });
+        mesh = new THREE.Mesh(cone, material);
+        mesh.position.set(positionOfAudioAndCone.x, positionOfAudioAndCone.y, positionOfAudioAndCone.z); //Die Position der geometrischen Figur ist genau deckungsgleich mit der Position des Audios
+        scene.add(mesh);
+      }
+    
+      // Schritt 4 weiter
+      function createPositionalAudio() {
+        const sound = new THREE.PositionalAudio(listener); //So kann der Listener stets nachverfolgen, wo der Sound ist.
+        sound.setRefDistance(0.1); // Distanz in Meter zwischen dem Ton und dem Nutzer (Listener), ab der die Lautstärke sich automatisch verringert um anzuzeigen, dass man sich aus dem gewünschten Bereich entfernt. 
+        sound.setDistanceModel('linear'); // Dieser Wert beschreibt die Gewschindigkeit, mit der der Sound bei Entfernung des Listeners abnimmt. Der Wert muss linear sein, damit es auch bei maximal erlaubter Entfernung des Nutzers(Zuhörers) noch funktioniert.
+        sound.setMaxDistance(2.5); // Ist der Listener 2,5m vom Sound entfernt, hört er nichts mehr. Vgl.  https://threejs.org/docs/#api/en/audio/PositionalAudio ; Dieser Wert wurde beliebig auf 2,5m gesetzt. Hier besteht großer Spielraum, um evtl einen größeren Bereich abzudecken.
+        
+        // Kombination der geometrischen Figur mit dem Sound; Im beispiel ein cone(Kegel); Dies ist aber egal.
+        // Folgender Link : Erklärungen: https://stackoverflow.com/questions/36706118/use-three-js-positionalaudio-to-make-a-cone-of-sound
+        // Attribute: coneInnerAngle, coneOuterAngle, coneOuterGain (Werte hier zwischen 0-1, Wert 0 bedeutet, dass außerhalb der geometrischen Figur kein Sound läuft(wollen wir aber).
+        sound.setDirectionalCone(180, 230, 0); // Hier wird eine geometrische Figur erstellt (Cone), die festlegt, in welcher die Form, zu der der Sound spielt, festlegt.
+
+        // Optinonaler Part, der dabei hilft, die geometrische Figur darzustellen.
+        const helper = new PositionalAudioHelper(sound);
+        sound.add(helper);
+        return sound;
+      }
+      //Schritt 4 weiter:
+      function createToneAudio() {        
+        const sound = createPositionalAudio(); // Im Grunde ruft man die Funktion createPositionalAudio auf und speichert das Ergebnis (= Das PositionalAudio Objekt) in der Variable sound.
+        
+        Tone.setContext(sound.context); // Hier spricht man Tone.js an und legt den Inhalt sound als Audio Quelle fest.
+        
+        const synth = new Tone.PolySynth(Tone.Synth); // Mit diesem Synth Objekt können Synth Sounds erzeugt werden.
+        sound.setNodeSource(synth);
+        mesh.add(sound); // Die Variable sound aus Schritt 4 wird an das mesh aus Schritt 3 geknüpft.
+        // Es besteht nun eine Verbindung zwischen dem Sound und der geometrischen Figur (mesh). Der Sound ist wiederrum mit der Bibliothek tone.js verbunden.
+        // Der Sound wird hier also nicht aus einer Audio Datei gezogen, die als Asset hinterlegt wurde, sondern aus der Online Bibliothek tone.js.
+        // reiner Tone.js Inhalt; ein spezifischer Ton läuft alle 3 Notes
+        Tone.Transport.scheduleRepeat(time => {
+          console.log("note 1");
+          synth.triggerAttackRelease("C6", "8n", time);
+        }, "3n", 0);
+        
+        Tone.Transport.scheduleRepeat(time => {
+          console.log("note 2");
+          synth.triggerAttackRelease("G3", "8n", time);
+        }, "3n", "6n", "3m"); // Sound wird abgespielt.
+        
+        Tone.Transport.start();
+      }
+      
+    </script>
+  </body>
+</html>
